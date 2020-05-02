@@ -17,7 +17,7 @@ public abstract class Creature {
 		strength = s;
 	}
 	
-	public abstract void takeDamage();
+	public abstract void takeDamage(int damage);
 	
 	public abstract void dealDamage();
 
