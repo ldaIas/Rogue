@@ -12,7 +12,9 @@ public enum Armor {
 		damageReduction = armor;
 	}
 	
-	
+	public int getDamageReduction() {
+		return damageReduction;
+	}
 	
 	
 }
