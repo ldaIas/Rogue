@@ -9,6 +9,8 @@ public class Dungeon {
 	private final  int MIN_LEVEL_SIZE = 3;
 	private final int LEVEL_GRID_SIZE = 3;
 	private Room[][] dungeonLayer;
+	private Room currRoom;
+	private ArrayList<Pathway> paths;
 	
 	public Dungeon() {
 		
@@ -33,18 +35,43 @@ public class Dungeon {
 			}
 		}
 		dungeonLayer[1][1] = new Room();
-		int currRooms = 1;
+		dungeonLayer[1][1].setStart();
+		currRoom = dungeonLayer[1][1];
+		int numRoomsMade = 1;
 		
-		while(currRooms < numRooms) {
+		while(numRoomsMade < numRooms) {
 			
 				int randX = generateInt(0, LEVEL_GRID_SIZE);
 				int randY = generateInt(0, LEVEL_GRID_SIZE);
 				
 				if(dungeonLayer[randX][randY] == null) {
 					dungeonLayer[randX][randY] = new Room();
-					currRooms += 1;
+					numRoomsMade += 1;
 				}		
 		}
 		
+		createPaths();
+	}
+	
+	//Generates paths/links between rooms in a dungeon level. 1 room can only have 2 links to different rooms
+	public void createPaths() {
+		paths = new ArrayList<Pathway>();
+		Room currRoom = dungeonLayer[1][1];
+		int numPaths = 0;
+		
+		while (numPaths < numRooms) {
+			
+			int randX = generateInt(0, LEVEL_GRID_SIZE);
+			int randY = generateInt(0, LEVEL_GRID_SIZE);
+			
+			if( (dungeonLayer[randX][randY] != null) && (dungeonLayer[randX][randY].getNumPaths() < 2) ) {
+				currRoom.addPath();
+				Pathway path = new Pathway(currRoom, dungeonLayer[randX][randY]);
+				paths.add(path);
+				
+				currRoom = dungeonLayer[randX][randY];
+				currRoom.addPath();
+			}	
+		}	
 	}
 }

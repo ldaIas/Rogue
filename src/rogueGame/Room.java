@@ -11,6 +11,7 @@ public class Room {
 	private final int MAX_HEIGHT = 10;
 	private final int MIN_SIZE = 7;
 	private char[][] roomLines;
+	private int numPaths;
 	
 	public Room() {
 		width = generateInt(MIN_SIZE, MAX_WIDTH);
@@ -18,6 +19,7 @@ public class Room {
 		
 		roomLines = new char[height][width];
 		generateRoom();
+		numPaths = 0;
 	}
 	
 	
@@ -50,11 +52,16 @@ public class Room {
 		int playerPosX = generateInt(1, MAX_WIDTH - 1);
 		int playerPosY = generateInt(1, MAX_HEIGHT - 1);
 		
-		roomLines[playerPosX][playerPosY] = 'P';
-		
-		
+		roomLines[playerPosX][playerPosY] = 'P';		
 	}
 	
+	public int getNumPaths() {
+		return numPaths;
+	}
+	
+	public void addPath() {
+		numPaths += 1;
+	}
 	
 	public void printRoom() {
 		for(int i = 0; i < height; i++) {
