@@ -13,6 +13,8 @@ public class Room {
 	private char[][] roomLines;
 	private int numPaths;
 	private Player player;
+	private boolean updated;
+	private final char FLOOR_CHAR = '.';
 	
 	public Room() {
 		width = generateInt(MIN_SIZE, MAX_WIDTH);
@@ -37,7 +39,7 @@ public class Room {
 				//If it is the edge of the room, mark with wall texture
 				if( (i == 0) || (j == 0) ) roomLines[i][j] = '/';
 				else if ( (i == height - 1) || (j == width - 2) ) roomLines[i][j] = '/';
-				else roomLines[i][j] = '.';
+				else roomLines[i][j] = FLOOR_CHAR;
 				
 				//End the line if we have reached the width
 				if(j == width - 1) {
@@ -76,6 +78,18 @@ public class Room {
 		numPaths += 1;
 	}
 	
+	public void movePlayer(int x, int y) {
+		int playerX = player.getPosX();
+		int playerY = player.getPosY();
+		
+		changeChar(playerY, playerX, FLOOR_CHAR);
+		
+		if( (x > 1) && (x < width - 1) ) playerX = x;
+		if( (y > 1) && (y < height - 1) ) playerY = y;
+		
+		player.move(playerX, playerY);		
+	}
+	
 	//Change a character in the room to the one passed in at the position passed in
 	public void changeChar(int h, int w, char c) {
 		
@@ -87,6 +101,14 @@ public class Room {
 		}	
 	}
 	
+	public void update(boolean b) {
+		updated = b;
+	}
+	
+	public boolean wasUpdated() {
+		return updated;
+	}
+	
 	public void printRoom() {
 		changeChar(player.getPosY(), player.getPosX(), player.getChar());
 		
@@ -95,6 +117,10 @@ public class Room {
 				System.out.print(roomLines[i][j]);
 			}
 		}
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 	
 	public static void main(String[] args) {
