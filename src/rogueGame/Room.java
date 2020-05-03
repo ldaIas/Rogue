@@ -48,19 +48,44 @@ public class Room {
 		}
 	}
 	
+	//Set the room as the starting room. This is where the player will start, denoted "P"
 	public void setStart() {
 		int playerPosX = generateInt(1, MAX_WIDTH - 1);
 		int playerPosY = generateInt(1, MAX_HEIGHT - 1);
 		
-		roomLines[playerPosX][playerPosY] = 'P';		
+		changeChar(playerPosY, playerPosX, 'P');		
 	}
 	
 	public int getNumPaths() {
 		return numPaths;
 	}
 	
+	//Add a visible door to a path to the room. Doors are denoted "*" and only appear on the sides of the room
 	public void addPath() {
+		
+		int wallX = generateInt(0, width);
+		int wallY = generateInt(0, height);
+		while( (wallX != 0) && (wallY != 0)) {
+			wallX = generateInt(0, width);
+			wallY = generateInt(0, height);
+		}
+		
+		changeChar(wallY, wallX, '*');
+		
 		numPaths += 1;
+	}
+	
+	//Change a character in the room to the one passed in at the position passed in
+	public void changeChar(int h, int w, char c) {
+		
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				
+				if( (i == h) && (j == w) ) roomLines[i][j] = c;
+			}
+		}
+		
+		
 	}
 	
 	public void printRoom() {
