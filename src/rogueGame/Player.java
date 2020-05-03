@@ -6,6 +6,7 @@ public class Player extends Creature {
 
 	private int level;
 	private int exp;
+	private char playerChar;
 	
 	//Armors handling
 	private ArrayList<Armor> armors;
@@ -19,8 +20,8 @@ public class Player extends Creature {
 		super();
 	}
 
-	public Player(int h, int s) {
-		super(h, s);
+	public Player(int x, int y) {
+		super(20, 3);
 		level = 0;
 		exp = 0;
 		
@@ -29,6 +30,9 @@ public class Player extends Creature {
 		
 		weapons = new ArrayList<Weapon>();
 		currWeapon = Weapon.FISTS;
+		
+		playerChar = 'P';
+		move(x, y);
 	}
 
 	//The player takes damage. If the player is wearing armor, the damage is reduced by the armor's damage reduction amount.
@@ -42,13 +46,22 @@ public class Player extends Creature {
 		hp -= damage;
 		super.setHitPoints(hp);
 	}
-
+	
+	@Override
+	public void move(int x, int y) {
+		super.setPosX(x);
+		super.setPosY(y);
+	}
 	
 	
 	@Override
 	public void dealDamage() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public char getChar() {
+		return playerChar;
 	}
 
 	

@@ -41,8 +41,8 @@ public class Dungeon {
 		
 		while(numRoomsMade < numRooms) {
 			
-				int randX = generateInt(0, LEVEL_GRID_SIZE);
-				int randY = generateInt(0, LEVEL_GRID_SIZE);
+				int randX = generateInt(LEVEL_GRID_SIZE - 1, 0);
+				int randY = generateInt(LEVEL_GRID_SIZE - 1, 0);
 				
 				if(dungeonLayer[randX][randY] == null) {
 					dungeonLayer[randX][randY] = new Room();
@@ -61,8 +61,8 @@ public class Dungeon {
 		
 		while (numPaths < numRooms) {
 			
-			int randX = generateInt(0, LEVEL_GRID_SIZE);
-			int randY = generateInt(0, LEVEL_GRID_SIZE);
+			int randX = generateInt(LEVEL_GRID_SIZE - 1, 0);
+			int randY = generateInt(LEVEL_GRID_SIZE - 1, 0);
 			
 			if( (dungeonLayer[randX][randY] != null) && (dungeonLayer[randX][randY].getNumPaths() < 2) ) {
 				currRoom.addPath();
@@ -71,7 +71,36 @@ public class Dungeon {
 				
 				currRoom = dungeonLayer[randX][randY];
 				currRoom.addPath();
+				
+				numPaths += 1;
 			}	
 		}	
+	}
+	
+	public Room getCurrRoom() {
+		return currRoom;
+	}
+	
+	//Print the rooms in the dungeon level 
+	public void printDungeon() {
+		int roomNum = 1;
+		
+		for(int i = 0; i < LEVEL_GRID_SIZE; i++) {
+			for(int j = 0; j < LEVEL_GRID_SIZE; j++) {
+				
+				if(dungeonLayer[i][j] != null) {
+					System.out.println("Room: " + roomNum);
+					dungeonLayer[i][j].printRoom();
+					roomNum++;
+				}
+				
+			}
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		Dungeon d = new Dungeon();
+		d.printDungeon();
 	}
 }

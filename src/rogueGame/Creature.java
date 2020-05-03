@@ -6,7 +6,9 @@ public abstract class Creature {
 
 	private int hitPoints;
 	private int strength;
-	
+	private int posX;
+	private int posY;
+
 	public Creature() {
 		hitPoints = 0;
 		strength = 0;
@@ -20,7 +22,9 @@ public abstract class Creature {
 	public abstract void takeDamage(int damage);
 	
 	public abstract void dealDamage();
-
+	
+	public abstract void move(int x, int y);
+	
 	public int getHitPoints() {
 		return hitPoints;
 	}
@@ -36,6 +40,21 @@ public abstract class Creature {
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
-	
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
 	
 }

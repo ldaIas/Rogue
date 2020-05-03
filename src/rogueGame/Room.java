@@ -12,6 +12,7 @@ public class Room {
 	private final int MIN_SIZE = 7;
 	private char[][] roomLines;
 	private int numPaths;
+	private Player player;
 	
 	public Room() {
 		width = generateInt(MIN_SIZE, MAX_WIDTH);
@@ -50,10 +51,10 @@ public class Room {
 	
 	//Set the room as the starting room. This is where the player will start, denoted "P"
 	public void setStart() {
-		int playerPosX = generateInt(1, MAX_WIDTH - 1);
-		int playerPosY = generateInt(1, MAX_HEIGHT - 1);
+		int playerPosX = generateInt(2, width - 2);
+		int playerPosY = generateInt(2, height - 2);
 		
-		changeChar(playerPosY, playerPosX, 'P');		
+		player = new Player(playerPosX, playerPosY);				
 	}
 	
 	public int getNumPaths() {
@@ -83,12 +84,12 @@ public class Room {
 				
 				if( (i == h) && (j == w) ) roomLines[i][j] = c;
 			}
-		}
-		
-		
+		}	
 	}
 	
 	public void printRoom() {
+		changeChar(player.getPosY(), player.getPosX(), player.getChar());
+		
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				System.out.print(roomLines[i][j]);
@@ -98,6 +99,7 @@ public class Room {
 	
 	public static void main(String[] args) {
 		Room r = new Room();
+		r.setStart();
 		r.printRoom();
 	}
 }
